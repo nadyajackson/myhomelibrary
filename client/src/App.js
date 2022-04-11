@@ -1,5 +1,5 @@
 import React, {useContext} from 'react'
-import { Switch, Route, Redirect } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import Navbar from './components/constants/navbar';
 import Footer from './components/constants/footer';
 import Login from './components/pieces/login';
@@ -7,36 +7,38 @@ import Home from './components/pages/home';
 import TBR from './components/pages/tbr';
 import Wishlist from './components/pages/wishlist';
 import Search from './components/pages/search';
+import { UserContext } from './context/UserProvider';
 
 
 function App() {
-const {token, logout} = useContext(UserContext)
+//const {token, logout} = useContext(UserContext)
   return (
     <div className="App">
-      <Navbar logout = {logout} />
-      <Switch>
+      <Navbar /*logout = {logout}*/ />
+      <Routes>
         <Route
           exact path = "/"
-          render={()=> token ? <Redirect to="/mylibrary" /> : <Home /> }
+          element={<Home/>}
+       //   render={()=> token ? <Navigate to="/mylibrary" /> : <Home /> }
         />
-        <ProtectedRoute
+        {/* <ProtectedRoute
           path="/tbr"
-          component={TBR}
+          element={<TBR/>}
           redirectTo='/'  
           token={token}
         />
         <ProtectedRoute
           path="/wishlist"
-          component={Wishlist}
+          element={<Wishlist/>}
           redirectTo='/'  
-          token={token}
-        />
-        <Route
+          token={token} */}
+        {/* /> */}
+        {/* <Route
           path="/search"
-          component={Search}
-        />
-      </Switch>
-      <Footer/>
+          element={<Search/>}
+        /> */}
+      </Routes>
+      {/* <Footer/> */}
     </div>
   );
 }

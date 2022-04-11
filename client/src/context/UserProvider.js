@@ -41,7 +41,7 @@ function signup(credentials){
             const {user, token} = res.data
             localStorage.setItem("token", token)
             localStorage.setItem("user", JSON.stringify(user))
-            selectIssue()
+           // selectIssue()
             setUserState(prevUserState => ({
                 ...prevUserState,
                 user,
@@ -57,14 +57,14 @@ function login(credentials){
             const { user, token} = res.data
             localStorage.setItem("token", token)
             localStorage.setItem("user", JSON.stringify(user))
-            selectIssue()
+           // selectIssue()
             setUserState(prevUserState => ({
                 ...prevUserState,
                 user,
                 token
             }))
             console.log(user._id, "login")
-            getUserComments(user._id)
+          //  getUserComments(user._id)
         })
         .catch(err => handleError(err.response.data.errMsg))
 }
@@ -89,10 +89,10 @@ return(
             signup,
             login,
             logout,
-            addComment,
-            selectIssue,
-            getUserComments,
-            selectIssueThread,
+            // addComment,
+            // selectIssue,
+            // getUserComments,
+            // selectIssueThread,
             resetError
         }}>
         {props.children}
