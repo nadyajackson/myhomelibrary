@@ -1,10 +1,15 @@
-export default function BookPiece (){
+import React, {useContext} from 'react';
+import { DataContext } from '../../context/DataProvider';
+
+
+export default function BookPiece (props){
+    const {volumeInfo} = props
     return(
-        <div>
-            <img src="" alt="Book Cover" height="40px"/>
-            <h4>Title</h4>
-            <h6>Author</h6>
-            <p>Description</p>
+        <div className='bookdata'>
+            <img src={volumeInfo.imageLinks.thumbnail} alt={volumeInfo.alt} height="40px"/>
+            <h2>{volumeInfo.title}</h2>
+            <h4>{volumeInfo.authors}</h4>
+             <p>{volumeInfo.description}</p>
             <button>Library</button>
             <button>TBR</button>
             <button>Wishlist</button>

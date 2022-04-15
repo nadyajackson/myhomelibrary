@@ -33,10 +33,10 @@ function App() {
           redirectTo='/'  
           token={token} */}
         {/* /> */}
-        {/* <Route
+        <Route
           path="/search"
           element={<Search/>}
-        /> */}
+        />
       </Routes>
       {/* <Footer/> */}
     </div>
