@@ -28,14 +28,14 @@ export default function DataProvider(props) {
         const encodeQuery = encodeURIComponent(query);
         const url = `https://www.googleapis.com/books/v1/volumes?q=isbn:${encodeQuery}&key=${key}`
         
-        axios.get(url).then(res => setBookState(res)).catch(err => console.log(err))
+        axios.get(url).then(res => setBookState({bookState: res.data.items})).catch(err => console.log(err))
     }
 
     const byGID = (query) => {
         const encodeQuery = encodeURIComponent(query);
         const url = `https://www.googleapis.com/books/v1/volumes/${encodeQuery}?key=${key}`
         
-        axios.get(url).then(res => setBookState(res)).catch(err => console.log(err))
+        axios.get(url).then(res => setBookState({bookState: res.data.items})).catch(err => console.log(err))
     }
 
     const byTitle = (query) => {
@@ -44,10 +44,8 @@ export default function DataProvider(props) {
     // url="https://www.googleapis.com/books/v1/volumes?q=intitle:The+Iron+King&key=AIzaSyCZKGKVzptBGV25nPaDWcgK4q6vHIzhSCQ"
         axios.get(url).then(res => {
             console.log(res.data.items)
-            setBookState({
-                bookState: res.data.items
-            })
-            console.log(res.data.items[0].volumeInfo.title)
+            setBookState({bookState: res.data.items})
+            // console.log(res.data.items[0].volumeInfo.title)
         }).catch(err => console.log(err))
 
     }
@@ -56,14 +54,14 @@ export default function DataProvider(props) {
         const encodeQuery = encodeURIComponent(query);
         const url = `https://www.googleapis.com/books/v1/volumes?q=inauthor:${encodeQuery}&key=${key}`
         
-        axios.get(url).then(res => setBookState(res)).catch(err => console.log(err))
+        axios.get(url).then(res => setBookState({bookState: res.data.items})).catch(err => console.log(err))
     }
     
     const genQuery= (query) => {
         const encodeQuery = encodeURIComponent(query);
         const url = `https://www.googleapis.com/books/v1/volumes?q="${encodeQuery}"&key=${key}`
         
-        axios.get(url).then(res => setBookState(res)).catch(err => console.log(err))
+        axios.get(url).then(res => setBookState({bookState: res.data.items})).catch(err => console.log(err))
     }
    
 
