@@ -10,21 +10,24 @@ import { useAuth0 } from "@auth0/auth0-react";
 
 export default function Navbar(){
     
-     //const { user, isAuthenticated} = useAuth0();
+     const { user, isAuthenticated} = useAuth0();
       
     
     return(
+        
         <div className='NavBar'>
+        {console.log(user)}
             <span>
             <img src={logo} alt="My Home Library Logo" height="300px"/>
             <Link to="/">Home</Link>
-            {/* {isAuthenticated && <Link to="/mylibrary">My Library</Link> } */}
-            {/* {isAuthenticated && <Link to="/wishlist">Wishlist</Link> }
-            {isAuthenticated && <Link to="/tbr">TBR</Link> } */}
+            {isAuthenticated && <Link to="/mylibrary">My Library</Link> } 
+            {isAuthenticated && <Link to="/wishlist">Wishlist</Link> }
+            {isAuthenticated && <Link to="/tbr">TBR</Link> }
             <Link to="/search">Search</Link>
             <Link to="/contact">Contact</Link>
-            {/* {isAuthenticated && <LogoutButton/> }
-            {!isAuthenticated && <LoginButton/> } */}
+            {isAuthenticated && <p>Welcome, {user.name}</p>}
+             {isAuthenticated && <LogoutButton/> }
+            {!isAuthenticated && <LoginButton/> }
             </span>
         </div>
     )
