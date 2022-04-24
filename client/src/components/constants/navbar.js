@@ -15,10 +15,10 @@ export default function Navbar(){
     
     return(
         
-        <div className='NavBar'>
-        {console.log(user)}
+        <div className='navbar'>
+            <img src={logo} alt="My Home Library Logo" />
             <span>
-            <img src={logo} alt="My Home Library Logo" height="300px"/>
+            {/* <img src={logo} alt="My Home Library Logo" /> */}
             <Link to="/">Home</Link>
             {isAuthenticated && <Link to="/mylibrary">My Library</Link> } 
             {isAuthenticated && <Link to="/wishlist">Wishlist</Link> }

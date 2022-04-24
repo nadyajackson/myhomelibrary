@@ -2,9 +2,9 @@ import BookMap from "../pieces/bookMap";
 import { DataContext } from "../../context/DataProvider";
 import {useContext, useState} from 'react'
 
-export default function Search (props){
+export default function Search (){
    // const {} = props
-const [inputs, setInputs] = useState()
+const [inputs, setInputs] = useState("title")
 const [query, setQuery] = useState()
 //const context = useContext(DataContext)
  const {byTitle, byISBN, byAuthor, genQuery, bookState} = useContext(DataContext)
@@ -40,8 +40,8 @@ function barChange(e){
 
 
     return(
-        <div>
-           <form name="SearchForm">
+        <div >
+           <form className="searchform">
                <label>Search by:</label>
                <select onChange={handleChange}> 
                     <option value="general">Title and Author</option>

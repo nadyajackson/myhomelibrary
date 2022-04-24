@@ -1,3 +1,125 @@
+@media only screen and (min-width: 320px){ 
+*{
+    background-color: #8f5e36;
+    /* background-image: linear-gradient(rgba(143,94,54,1), rgba(143,94,54,0)); */
+    color: white
+}
+.navbar img{
+    width:310px
+}
+.navbar span{
+    display: flex;
+    justify-content: space-around;
+    font-size: larger;  
+    flex-wrap: wrap;
+    align-items: baseline;
+
+    margin: 10px;
+}
+button{
+    background-color: #A76B50;
+    color: black;
+    border-radius: 8px;
+    margin: 5px;
+}
+.Home{
+    text-align: center;
+    margin: 5px;
+}
+.searchform{
+    margin-top: 25px;
+    text-align: center;
+}
+.searchform select {
+    background-color: #CAB19B;
+    color: black;
+    margin-left: 5px;
+}
+.searchform input{
+    margin-top: 10px;
+    margin-right: 15px;
+    background-color: #CAB19B;
+}
 .bookdata img{
-    height: 150px
+    height: 150px;
+}
+.bookdata{
+    border: 4px solid #CAB19B;
+    border-radius: 8px;
+    text-align: center;
+    padding: 10px;
+    margin: 15px; 
+}
+.bookdata p{
+    max-height: 200px;
+    overflow: hidden;  
+}
+.SortForm{
+    text-align: center;
+}
+.SortForm select {
+    background-color: #CAB19B;
+    color: black;
+    margin-left: 5px;
+}
+
+}
+
+
+@media only screen and (min-width: 768px){
+.navbar{
+    display: grid;
+    grid-template-columns: auto auto;
+    margin: 15px
+}    
+.navbar img{
+    float: left;
+}
+.navbar span{
+    align-content: center;
+}
+.Home{
+  max-width: 600px;
+  margin: auto;
+} 
+.searchform{
+    font-size: x-large;
+}   
+.searchform select {
+    font-size: large;
+}
+.searchform input{
+    margin-left: 5px;
+    font-size: large;
+}
+.SortForm{
+    font-size: x-large;
+}
+.SortForm select {
+    font-size: large;
+}
+}
+
+
+    
+@media only screen and (min-width: 1024px){
+.navbar{
+    font-size: larger;
+    max-width: 1000px;
+    margin:auto;
+    } 
+.navbar img{
+    width: 400px;
+}
+.Home{
+    font-size: larger;
+    }    
+button{
+    font-size: large;
+}
+.bookdata{
+    max-width: 1000px;
+    margin: auto;
+    margin-top: 20px;
+}
 }

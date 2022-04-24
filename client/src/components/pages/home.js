@@ -1,8 +1,6 @@
-import Login from "./login"
-
 export default function Home (){
     return(
-        <div>
+        <div className="Home">
           <div>
             <h1>Welcome</h1>
             <p>My Home Library is a long-term project to help avid-readers and avid-organizers live their best lives.
@@ -16,7 +14,7 @@ export default function Home (){
             <p>N.B. Jackson grew in Alaska and now lives in Texas with her husband and fur children. The path into programming has been convelouted but this app is the realization of life long goal.</p>
           </div>
           <div>
-            <Login />
+          
           </div>
         </div>
     )

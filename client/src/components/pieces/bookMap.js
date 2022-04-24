@@ -5,9 +5,9 @@ import {useContext} from 'react'
 
 export default function BookMap(){
   const {bookState} = useContext(DataContext)
- console.log(bookState)
+// console.log(bookState)
   return (
-    <div className="bookdata">
+    <div >
        {bookState.map(bookdata =>  <BookPiece {...bookdata}  key={bookdata.id}/>)} 
     </div>
   )

@@ -7,7 +7,7 @@ export default function BookMapLists(){
   const {listState} = useContext(UserContext)
  console.log(listState)
   return (
-    <div className="bookdata">
+    <div>
        {/* {listState.map(listdata =>  <BookPiece {...listdata}  key={listdata.id}/>)}  */}
     </div>
   )

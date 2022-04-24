@@ -18,9 +18,11 @@ export default function BookPiece (props){
             <h2>{volumeInfo.title}</h2>
             <h4>{volumeInfo.authors}</h4>
              <p>{volumeInfo.description}</p>
-            <button>Library</button>
-            <button>TBR</button>
-            <button>Wishlist</button>
+            <div className='buttons'>
+                <button>Library</button>
+                <button>TBR</button>
+                <button>Wishlist</button>
+            </div>
         </div>
     )
 }

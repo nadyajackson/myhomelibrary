@@ -7,7 +7,7 @@ export default function TBR (){
     }
     return(
         <div>
-            <form name="SortForm">
+            <form className="SortForm">
                <label>Sort by:</label>
                <select onChange={handleChange}>
                     <option value="addDate">Date added(newest)</option>
