@@ -1,6 +1,7 @@
 const mysql = require('mysql2')
 const morgan = require('morgan')
 const express = require('express')
+const cors = require('cors')
 
 const db = mysql.createConnection({
     host: 'localhost',
@@ -17,7 +18,7 @@ db.connect((err) =>{
 
 const app = express();
 
-// app.use(cors());
+app.use(cors());
 app.use(morgan('dev'))
 app.use(express.json())
 
@@ -25,20 +26,21 @@ app.use(express.json())
 
 //INSERT
 app.get('/insertOwned', (req, res) => {
-    let owned = `user_id = '${req.body.user_id}', gid='${req.body.gid}', firstEdition= '${req.body.firstEdition}', physical= '${req.body.physical}',
-					signedCopy= '${req.body.signedCopy}', specialEdition= '${req.body.specialEdition}',    
-                    purchaseDate= '${req.body.purchaseDate}', giftedBy= '${req.body.giftedBy}', embossed= '${req.body.embossed}', 
-                    paintedEdges= '${req.body.paintedEdges}', roomInHouse= '${req.body.roomInHouse}', 
-                    recomendedBy= '${req.body.recomendedBy}', dateAdded= '${req.body.dateAdded}', dateEdited = '${req.body.dateEdited}', boughtFrom = '${req.body.boughtFrom} `
+    let owned = `user_id = '${req.body.user_id}', gid='${req.body.gid}', firstEdition= ${req.body.firstEdition}, physical= '${req.body.physical}',
+                signedCopy= ${req.body.signedCopy}, specialEdition= '${req.body.specialEdition}',
+                purchaseDate= '${req.body.purchaseDate}', giftedBy= '${req.body.giftedBy}', embossed= ${req.body.embossed},
+                paintedEdges= '${req.body.paintedEdges}', roomInHouse= '${req.body.roomInHouse}',
+                recomendedBy= '${req.body.recomendedBy}', dateAdded= '${req.body.dateAdded}', dateEdited = '${req.body.dateEdited}', boughtFrom = '${req.body.boughtFrom}'`
     let myQuery = `INSERT INTO owned SET ${owned}`;
     db.query(myQuery, (err, result) => {
         if (err){
-            console.log(myQuery)
+            console.log('this is the req.body', req.body)
+            console.log('line 37' , myQuery)
             throw err;
         }
         console.log(result)
         res.send('Data updated')
-    })
+   })
 })
 
 

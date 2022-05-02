@@ -38,15 +38,17 @@ export default function UserProvider(props){
 
     //Post Owned
     const addOwned = (newBook) =>{
-        axios.get('/insertOwned', newBook)
+        console.log(newBook)
+        axios.get('http://localhost:9000/insertOwned', newBook)
             .then(res=>{
                 console.log(newBook)
                 setUserState({owned: previous => [...previous, newBook]})
                 .catch(err => console.log(err))
             })
     }
+
     const addTBR = (newBook) =>{
-        axios.get('/insertTBR', newBook)
+        axios.get('localhost:9000/insertTBR', newBook)
             .then(res=>{
                 console.log(newBook)
                 setUserState({tbr: previous => [...previous, newBook]})
