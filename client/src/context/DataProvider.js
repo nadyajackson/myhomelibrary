@@ -23,6 +23,7 @@ export default function DataProvider(props) {
     }
     
     const [bookState, setBookState] = useState(initState)
+    const [oneBook, setOneBook] = useState('')
 
     const byISBN = (query) => {
         const encodeQuery = encodeURIComponent(query);
@@ -38,7 +39,10 @@ export default function DataProvider(props) {
         const url = `https://www.googleapis.com/books/v1/volumes/${encodeQuery}?key=${key}`
         
         axios.get(url).then(res => 
-            {setBookState({bookState: res.data.items})}
+           { console.log(url)
+            console.log(res.data)
+            setOneBook(res.data)}
+            
         ).catch(err => console.log(err))
     }
 
@@ -79,6 +83,7 @@ export default function DataProvider(props) {
         <DataContext.Provider
             value={{
                 ...bookState,
+                oneBook,
                 byISBN,
                 byGID,
                 byTitle,

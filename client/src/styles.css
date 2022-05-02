@@ -4,6 +4,9 @@
     /* background-image: linear-gradient(rgba(143,94,54,1), rgba(143,94,54,0)); */
     color: white
 }
+.navbar{
+    border-bottom: white solid 1px;
+}
 .navbar img{
     width:310px
 }
@@ -17,10 +20,22 @@
     margin: 10px;
 }
 button{
-    background-color: #A76B50;
+    background-color: #CAB19B;
     color: black;
     border-radius: 8px;
     margin: 5px;
+    text-decoration: none;
+}
+.footer{
+    border-top: 1px solid white;
+    margin: auto;
+    width: 320px;
+    text-align: center;
+    margin-top: 50px;
+}
+.logos img{
+    height: 40px;
+    margin: 10px;
 }
 .Home{
     text-align: center;
@@ -62,6 +77,92 @@ button{
     color: black;
     margin-left: 5px;
 }
+.fullbook img{
+    height: 150px;
+}
+.fullbook{
+    border: 4px solid #CAB19B;
+    border-radius: 8px;
+    text-align: center;
+    padding: 10px;
+    margin: 15px; 
+}
+.addtoLibrary{
+    border: 4px solid #CAB19B;
+    border-radius: 8px;
+    text-align: center;
+    padding: 10px;
+    margin: 15px; 
+    display: flex;
+    flex-direction: column;
+}
+.addtoLibrary select{
+    margin-bottom: 10px;
+}
+/* TOGGLE STYLING */
+.toggle {
+    margin: auto;
+    box-sizing: border-box;
+    font-size: 0;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+    align-items: stretch;
+  }
+  .toggle input {
+    width: 0;
+    height: 0;
+    position: absolute;
+    left: -9999px;
+  }
+  .toggle input + label {
+    margin: 0;
+    padding: 0.75rem 2rem;
+    box-sizing: border-box;
+    position: relative;
+    display: inline-block;
+    border: solid 1px #DDD;
+    /* background-color: #FFF; */
+    font-size: 1rem;
+    line-height: 140%;
+    font-weight: 600;
+    text-align: center;
+    box-shadow: 0 0 0 rgba(255, 255, 255, 0);
+    transition: border-color 0.15s ease-out, color 0.25s ease-out, background-color 0.15s ease-out, box-shadow 0.15s ease-out;
+    /* ADD THESE PROPERTIES TO SWITCH FROM AUTO WIDTH TO FULL WIDTH */
+    /*flex: 0 0 50%; display: flex; justify-content: center; align-items: center;*/
+    /* ----- */
+  }
+  .toggle input + label:first-of-type {
+    border-radius: 6px 0 0 6px;
+    border-right: none;
+  }
+  .toggle input + label:last-of-type {
+    border-radius: 0 6px 6px 0;
+    border-left: none;
+  }
+  .toggle input:hover + label {
+    border-color: #213140;
+  }
+  .toggle input:checked + label {
+    background-color: #CAB19B;
+    color: #FFF;
+    box-shadow: 0 0 10px #000;
+    border-color: #CAB19B;
+    z-index: 1;
+  }
+  .toggle input:focus + label {
+    outline: dotted 1px #CCC;
+    outline-offset: 0.45rem;
+  }
+  /* @media (max-width: 320px) {
+    .toggle input + label {
+      padding: 0.75rem 0.25rem;
+      flex: 0 0 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    } */
 
 }
 
@@ -98,6 +199,12 @@ button{
 .SortForm select {
     font-size: large;
 }
+#fullbook{
+    display: grid;
+    grid-template-columns: auto auto;
+    margin-left: 50px;
+    margin-right: 50px;
+}
 }
 
 
@@ -121,5 +228,15 @@ button{
     max-width: 1000px;
     margin: auto;
     margin-top: 20px;
+}
+#fullbook{
+    display: grid;
+    grid-template-columns: auto auto;
+    margin-left: 150px;
+    margin-right: 150px;
+}
+.addtoLibrary{
+    width: 350px;
+    font-size: larger;
 }
 }

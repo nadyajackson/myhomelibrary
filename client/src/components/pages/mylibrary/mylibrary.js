@@ -1,10 +1,21 @@
-import BookMapLists from "../pieces/bookMapLists"
+import BookMapLists from "../../pieces/bookMapLists"
+import axios from 'axios'
+import { useEffect } from "react"
 
-export default function TBR (){
+export default function Library (){
     function handleChange(e){
         const{value} = e.target
         console.log(value)
     }
+
+    useEffect(() =>{
+        axios.get('/displayRows')
+            .then(res => {
+             
+            })
+            .catch(err => console.log(err))
+    }, []);
+
     return(
         <div>
             <form className="SortForm">
@@ -15,7 +26,7 @@ export default function TBR (){
                     <option value="Title">Title</option>
                     <option value="Author">Author</option>
                     <option value="pubDate">Date Published</option>
-               </select>
+               </select> 
            </form>
            <BookMapLists/>
         </div>
