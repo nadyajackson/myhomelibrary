@@ -39,7 +39,7 @@ export default function DataProvider(props) {
         const url = `https://www.googleapis.com/books/v1/volumes/${encodeQuery}?key=${key}`
         
         axios.get(url).then(res => 
-           { console.log(url)
+           {console.log(url)
             console.log(res.data)
             setOneBook(res.data)}
             

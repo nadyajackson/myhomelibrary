@@ -1,7 +1,7 @@
-import React, { useContext, useState} from 'react';
-import { DataContext } from '../../context/DataProvider';
+import React, { useState} from 'react';
+//import { DataContext } from '../../context/DataProvider';
 import coverNotFound from "../../coverNotFound.png"
-import { useAuth0 } from "@auth0/auth0-react";
+//import { useAuth0 } from "@auth0/auth0-react";
 
 
 //Get Book Info Via Google ID (gid)
@@ -16,13 +16,15 @@ export default function FullBookDisplay(props){
             return volumeInfo.imageLinks.thumbnail
         }else{return coverNotFound}
     }
+
+    let Authors = volumeInfo.authors.map(bookdata => <h4>{bookdata}</h4>)
     
     return(
-        !volumeInfo ? 'loading' : 
+        !volumeInfo ? 'loading': 
         <div className='fullbook'>
             <img src={noCover()} alt="bookcover" height="40px"/>
             <h2>{volumeInfo.title}</h2>
-            <h4>{volumeInfo.authors}</h4>
+            {Authors}
             <p>{volumeInfo.description}</p>
             <p>Published: {volumeInfo.publishedDate}</p>
             <p>Publisher: {volumeInfo.publisher}</p>

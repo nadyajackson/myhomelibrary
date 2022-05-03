@@ -12,15 +12,16 @@ export default function AddtoTBR (){
     const current = new Date()
     const date = `${current.getFullYear()}/${current.getMonth()+1}/${current.getDate()} ${current.getHours()}:${current.getMinutes()}:${current.getSeconds()}`;
 
-    const initialInputs = {user_id:user.sub, dateAdded: date, dateEdited: date, gid: bookID,
-                            };
+    const initialInputs = {user_id:user.sub, dateAdded: date, dateEdited: date, gid: bookID };
     
     const [inputs, setInputs] = useState(initialInputs);
 
     const handleChange = (e) => {
         const {name, value} = e.target;
         setInputs(prevInputs => ({...prevInputs, [name]:value}))
+        setInputs(prevInputs => ({...prevInputs, gid:bookID}))
         console.log(name, value)
+        console.log(inputs)
     }
 
     const handleSubmit = (e) => {

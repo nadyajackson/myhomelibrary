@@ -24,8 +24,15 @@ app.use(express.json())
 
 
 
+const PORT = 9000
+app.listen(PORT, () => { 
+    console.log(`The App is listening on port ${PORT}`)
+});
+
+
+
 //INSERT
-app.get('/insertOwned', (req, res) => {
+app.post('/insertOwned', (req, res) => {
     let owned = `user_id = '${req.body.user_id}', gid='${req.body.gid}', firstEdition= ${req.body.firstEdition}, physical= '${req.body.physical}',
                 signedCopy= ${req.body.signedCopy}, specialEdition= '${req.body.specialEdition}',
                 purchaseDate= '${req.body.purchaseDate}', giftedBy= '${req.body.giftedBy}', embossed= ${req.body.embossed},
@@ -35,7 +42,7 @@ app.get('/insertOwned', (req, res) => {
     db.query(myQuery, (err, result) => {
         if (err){
             console.log('this is the req.body', req.body)
-            console.log('line 37' , myQuery)
+            console.log('line 41' , myQuery)
             throw err;
         }
         console.log(result)
@@ -45,7 +52,7 @@ app.get('/insertOwned', (req, res) => {
 
 
 //INSERT
-app.get('/insertTBR', (req, res) => {
+app.post('/insertTBR', (req, res) => {
     let toberead = `user_id = '${req.body.user_id}', gid = '${req.body.gid}', recomendedBy = '${req.body.recomendedBy}', 
                 dateAdded = '${req.body.dateAdded}', dateEdited = '${req.body.dateEdited}'`
     let myQuery = `INSERT INTO toberead SET ${toberead}`;
@@ -61,9 +68,9 @@ app.get('/insertTBR', (req, res) => {
 
 
 //INSERT
-app.get('/insertWishlist', (req, res) => {
-    let wishlist = `user_id = '${req.body.user_id}', gid= '${req.body.user_id}', physical = '${req.body.physical}', 
-				recomendedBy= '${req.body.recomendedBy}', dateAdded= '${req.body.dateAdded}', dateEdited = '${req.body.dateEdited}'`
+app.post('/insertWishlist', (req, res) => {
+    let wishlist = `user_id = '${req.body.user_id}', gid= '${req.body.gid}', physical = '${req.body.physical}', 
+                recomendedBy= '${req.body.recomendedBy}', dateAdded= '${req.body.dateAdded}', dateEdited = '${req.body.dateEdited}'`
     let myQuery = `INSERT INTO wishlist SET ${wishlist}`;
     db.query(myQuery, (err, result) => {
         if (err){
@@ -76,9 +83,9 @@ app.get('/insertWishlist', (req, res) => {
 })
 
 //INSERT
-app.get('/insertReadYes', (req, res) => {
+app.post('/insertReadYes', (req, res) => {
     let readYes = `dateStarted = '${req.body.dateStarted}', dateEnded= '${req.body.dateEnded}', user_id= '${req.body.user_id}', gid= '${req.body.gid}', 
-					dateAdded = '${req.body.dateAdded}', dateEdited= '${req.body.dateEdited}'`
+                    dateAdded = '${req.body.dateAdded}', dateEdited= '${req.body.dateEdited}'`
     let myQuery = `INSERT INTO readYes SET ${readYes}`;
     db.query(myQuery, (err, result) => {
         if (err){
@@ -91,9 +98,9 @@ app.get('/insertReadYes', (req, res) => {
 })
 
   //INSERT
-app.get('/insertDNF', (req, res) => {
+app.post('/insertDNF', (req, res) => {
     let dnf = `user_id = '${req.body.user_id}', gid = '${req.body.gid}', physical = '${req.body.physical}',
-				notes = '${req.body.notes}', dateStarted = '${req.body.dateStarted}', dateEnded= '${req.body.dateEnded}'`
+                notes = '${req.body.notes}', dateStarted = '${req.body.dateStarted}', dateEnded= '${req.body.dateEnded}'`
     let myQuery = `INSERT INTO dnf SET ${dnf}`;
     db.query(myQuery, (err, result) => {
         if (err){
@@ -106,9 +113,9 @@ app.get('/insertDNF', (req, res) => {
 })                              
 
 //INSERT
-app.get('/insertReview', (req, res) => {
+app.post('/insertReview', (req, res) => {
     let reviews = `user_id = '${req.body.user_id}', userName= '${req.body.userName}', gid = '${req.body.gid}', 
-				starReview= '${req.body.starReview}', review= '${req.body.review}', viewerRating = '${req.body.viewerRating}', triggerWarnings= '${req.body.triggerWarnings}',
+                    starReview= '${req.body.starReview}', review= '${req.body.review}', viewerRating = '${req.body.viewerRating}', triggerWarnings= '${req.body.triggerWarnings}',
                     dateAdded= '${req.body.dateAdded}', dateEdited = '${req.body.dateEdited}'`
     let myQuery = `INSERT INTO reviews SET ${reviews}`;
     db.query(myQuery, (err, result) => {
@@ -122,7 +129,7 @@ app.get('/insertReview', (req, res) => {
 })
 
 //INSERT
-app.get('/insertGenre', (req, res) => {
+app.post('/insertGenre', (req, res) => {
     let genreTags = `gid = '${req.body.gid}', genreTag = '${req.body.genreTags}'`
     let myQuery = `INSERT INTO genreTags SET ${genreTags}`;
     db.query(myQuery, (err, result) => {
@@ -137,7 +144,7 @@ app.get('/insertGenre', (req, res) => {
 
 // DELETE FROM dnf WHERE gid = '' and user_id = '';
 //DELETE
-app.get('/deleteDNF/:gid', (req, res) => {
+app.delete('/deleteDNF/:gid', (req, res) => {
     let myQuery = `DELETE FROM dnf WHERE user_id = '${req.params.user_id}' and gid= '${req.params.gid}'`;
     db.query(myQuery, (err, result) => {
         if (err){
@@ -148,7 +155,7 @@ app.get('/deleteDNF/:gid', (req, res) => {
     })
 })
 // DELETE FROM genretags WHERE gid = ''and user_id = '';
-app.get('/deleteGenre/:gid', (req, res) => {
+app.delete('/deleteGenre/:gid', (req, res) => {
     let myQuery = `DELETE FROM genretags WHERE user_id = '${req.params.user_id}' and gid= '${req.params.gid}'`;
     db.query(myQuery, (err, result) => {
         if (err){
@@ -159,7 +166,7 @@ app.get('/deleteGenre/:gid', (req, res) => {
     })
 })
 // DELETE FROM owned WHERE gid = ''and user_id = '';
-app.get('/deleteOwned/:gid', (req, res) => {
+app.delete('/deleteOwned/:gid', (req, res) => {
     let myQuery = `DELETE FROM owned WHERE user_id = '${req.params.user_id}' and gid= '${req.params.gid}'`;
     db.query(myQuery, (err, result) => {
         if (err){
@@ -170,7 +177,7 @@ app.get('/deleteOwned/:gid', (req, res) => {
     })
 })
 // DELETE FROM readYes WHERE gid = ''and user_id = '';
-app.get('/deletereadYes/:gid', (req, res) => {
+app.delete('/deletereadYes/:gid', (req, res) => {
     let myQuery = `DELETE FROM readYes WHERE user_id = '${req.params.user_id}' and gid= '${req.params.gid}'`;
     db.query(myQuery, (err, result) => {
         if (err){
@@ -181,7 +188,7 @@ app.get('/deletereadYes/:gid', (req, res) => {
     })
 })
 // DELETE FROM reviews WHERE gid = ''and user_id = '';
-app.get('/deleteReviews/:gid', (req, res) => {
+app.delete('/deleteReviews/:gid', (req, res) => {
     let myQuery = `DELETE FROM reviews WHERE user_id = '${req.params.user_id}' and gid= '${req.params.gid}'`;
     db.query(myQuery, (err, result) => {
         if (err){
@@ -192,7 +199,7 @@ app.get('/deleteReviews/:gid', (req, res) => {
     })
 })
 // DELETE FROM toberead WHERE gid = ''and user_id = '';
-app.get('/deleteTBR/:gid', (req, res) => {
+app.delete('/deleteTBR/:gid', (req, res) => {
     let myQuery = `DELETE FROM toberead WHERE user_id = '${req.params.user_id}' and gid= '${req.params.gid}'`;
     db.query(myQuery, (err, result) => {
         if (err){
@@ -203,7 +210,7 @@ app.get('/deleteTBR/:gid', (req, res) => {
     })
 })
 // DELETE FROM wishlist WHERE gid = ''and user_id = '';
-app.get('/deletewishlist/:gid', (req, res) => {
+app.delete('/deletewishlist/:gid', (req, res) => {
     let myQuery = `DELETE FROM wishlist WHERE user_id = '${req.params.user_id}' and gid= '${req.params.gid}'`;
     db.query(myQuery, (err, result) => {
         if (err){
@@ -218,9 +225,9 @@ app.get('/deletewishlist/:gid', (req, res) => {
 // 				notes = '', dateStarted = '', dateEnded= ''
 //                 WHERE gid = ''and user_id = '';
 //UPDATE
-app.get('/updateDNF/:gid', (req, res) => {
+app.put('/updateDNF/:gid', (req, res) => {
     let dnf = `user_id = '${req.body.user_id}', gid = '${req.body.gid}', physical = '${req.body.physical}',
-				notes = '${req.body.notes}', dateStarted = '${req.body.dateStarted}', dateEnded= '${req.body.dateEnded}'`
+                notes = '${req.body.notes}', dateStarted = '${req.body.dateStarted}', dateEnded= '${req.body.dateEnded}'`
     let myQuery = `UPDATE dnf SET ${dnf} WHERE user_id = '${req.params.user_id}' and gid= '${req.params.gid}' `;
     db.query(myQuery, (err, result) => {
         if (err){
@@ -237,12 +244,12 @@ app.get('/updateDNF/:gid', (req, res) => {
 // 					roomInHouse= '', 
 //                     recomendedBy= '', dateAdded= '', dateEdited = ''
 //                     WHERE gid = ''and user_id = '';
-app.get('/updateOwned/:gid', (req, res) => {
-    let owned = `user_id = '${req.body.user_id}', gid='${req.body.gid}', firstEdition= '${req.body.firstEdition}', physical= '${req.body.physical}',
-					signedCopy= '${req.body.signedCopy}', specialEdition= '${req.body.specialEdition}',    
-                    purchaseDate= '${req.body.purchaseDate}', giftedBy= '${req.body.giftedBy}', embossed= '${req.body.embossed}', 
+app.put('/updateOwned/:gid', (req, res) => {
+    let owned = `user_id = '${req.body.user_id}', gid='${req.body.gid}', firstEdition= ${req.body.firstEdition}, physical= '${req.body.physical}',
+                signedCopy= ${req.body.signedCopy}, specialEdition= '${req.body.specialEdition}',    
+                    purchaseDate= '${req.body.purchaseDate}', giftedBy= '${req.body.giftedBy}', embossed= ${req.body.embossed}, 
                     paintedEdges= '${req.body.paintedEdges}', roomInHouse= '${req.body.roomInHouse}', 
-                    recomendedBy= '${req.body.recomendedBy}', dateAdded= '${req.body.dateAdded}', dateEdited = '${req.body.dateEdited}', boughtFrom = '${req.body.boughtFrom} `
+                    recomendedBy= '${req.body.recomendedBy}', dateAdded= '${req.body.dateAdded}', dateEdited = '${req.body.dateEdited}', boughtFrom = '${req.body.boughtFrom}' `
     let myQuery = `UPDATE owned SET ${owned} WHERE user_id = '${req.params.user_id}' and gid= '${req.params.gid}' `;
     db.query(myQuery, (err, result) => {
         if (err){
@@ -257,7 +264,7 @@ app.get('/updateOwned/:gid', (req, res) => {
 // UPDATE toberead SET user_id = '', gid = '', recomendedBy = '',
 // 					dateAdded = '', dateEdited = ''
 //                     WHERE gid = ''and user_id = '';
-app.get('/updateTBR/:gid', (req, res) => {
+app.put('/updateTBR/:gid', (req, res) => {
     let toberead = `user_id = '${req.body.user_id}', gid = '${req.body.gid}', recomendedBy = '${req.body.recomendedBy}', 
                 dateAdded = '${req.body.dateAdded}', dateEdited = '${req.body.dateEdited}'`
     let myQuery = `UPDATE tbr SET ${toberead} WHERE user_id = '${req.params.user_id}' and gid= '${req.params.gid}' `;
@@ -274,9 +281,9 @@ app.get('/updateTBR/:gid', (req, res) => {
 // UPDATE wishlist SET user_id = '', gid= '', physical = '', 
 // 						recomendedBy= '', dateAdded= '', dateEdited = ''
 //                         WHERE gid = ''and user_id = '';
-app.get('/updateWL/:gid', (req, res) => {
+app.put('/updateWL/:gid', (req, res) => {
     let wishlist = `user_id = '${req.body.user_id}', gid= '${req.body.user_id}', physical = '${req.body.physical}', 
-				recomendedBy= '${req.body.recomendedBy}', dateAdded= '${req.body.dateAdded}', dateEdited = '${req.body.dateEdited}'`
+                    recomendedBy= '${req.body.recomendedBy}', dateAdded= '${req.body.dateAdded}', dateEdited = '${req.body.dateEdited}'`
     let myQuery = `UPDATE wishlist SET ${wishlist} WHERE user_id = '${req.params.user_id}' and gid= '${req.params.gid}' `;
     db.query(myQuery, (err, result) => {
         if (err){
@@ -291,9 +298,9 @@ app.get('/updateWL/:gid', (req, res) => {
 // UPDATE readYes SET dateStarted = '', dateEnded= '', user_id= '', gid= '', 
 // 						dateAdded = '', dateEdited= ''
 //                         WHERE gid = ''and user_id = '';
-app.get('/updateRead/:gid', (req, res) => {
+app.put('/updateRead/:gid', (req, res) => {
     let readYes = `dateStarted = '${req.body.dateStarted}', dateEnded= '${req.body.dateEnded}', user_id= '${req.body.user_id}', gid= '${req.body.gid}', 
-					dateAdded = '${req.body.dateAdded}', dateEdited= '${req.body.dateEdited}'`
+                    dateAdded = '${req.body.dateAdded}', dateEdited= '${req.body.dateEdited}'`
     let myQuery = `UPDATE readYes SET ${readYes} WHERE user_id = '${req.params.user_id}' and gid= '${req.params.gid}' `;
     db.query(myQuery, (err, result) => {
         if (err){
@@ -309,9 +316,9 @@ app.get('/updateRead/:gid', (req, res) => {
 // UPDATE reviews SET user_id = '', userName= '', gid = '', 
 // 					starReview= '', review= '', viewerRating = '', triggerWarnings= '',
 //                     dateAdded= '', dateEdited = '';
-app.get('/updateReviews/:gid', (req, res) => {
+app.put('/updateReviews/:gid', (req, res) => {
     let reviews = `user_id = '${req.body.user_id}', userName= '${req.body.userName}', gid = '${req.body.gid}', 
-				starReview= '${req.body.starReview}', review= '${req.body.review}', viewerRating = '${req.body.viewerRating}', triggerWarnings= '${req.body.triggerWarnings}',
+                starReview= '${req.body.starReview}', review= '${req.body.review}', viewerRating = '${req.body.viewerRating}', triggerWarnings= '${req.body.triggerWarnings}',
                     dateAdded= '${req.body.dateAdded}', dateEdited = '${req.body.dateEdited}'`
     let myQuery = `UPDATE reviews SET ${reviews} WHERE user_id = '${req.params.user_id}' and gid= '${req.params.gid}' `;
     db.query(myQuery, (err, result) => {
@@ -325,7 +332,7 @@ app.get('/updateReviews/:gid', (req, res) => {
          
 
 // UPDATE genreTags SET gid = '', genreTag = '' WHERE gid = '' and genreTag = '';
-app.get('/updateGenre/:gid', (req, res) => {
+app.put('/updateGenre/:gid', (req, res) => {
     let genreTags = `gid = '${req.body.gid}', genreTag = '${req.body.genreTags}'`
     let myQuery = `UPDATE genre SET ${genreTags} WHERE genreTag = '${req.params.genreTag}' and gid= '${req.params.gid}' `;
     db.query(myQuery, (err, result) => {
@@ -341,7 +348,7 @@ app.get('/updateGenre/:gid', (req, res) => {
 // SELECT * FROM dnf WHERE user_id = '';
 //GET
 app.get('/getDNF/:user_id', (req, res) => {
-    let myQuery = `SELECT * FROM dnf WHERE user_id = ${req.params.user_id} `;
+    let myQuery = `SELECT * FROM dnf WHERE user_id = '${req.params.user_id}' `;
     db.query(myQuery, (err, result) => {
         if (err){
             throw err;
@@ -352,7 +359,7 @@ app.get('/getDNF/:user_id', (req, res) => {
 // SELECT * FROM owned WHERE user_id = ''; -- Add more
 //GET
 app.get('/getOwned/:user_id', (req, res) => {
-    let myQuery = `SELECT * FROM owned WHERE user_id = ${req.params.user_id}`;
+    let myQuery = `SELECT * FROM owned WHERE user_id = '${req.params.user_id}'`;
     db.query(myQuery, (err, result) => {
         if (err){
             throw err;
@@ -363,7 +370,7 @@ app.get('/getOwned/:user_id', (req, res) => {
 // SELECT * FROM readYes WHERE user_id = '';
 //GET
 app.get('/getreadYes/:user_id', (req, res) => {
-    let myQuery = `SELECT * FROM readYes WHERE user_id = ${req.params.user_id}`;
+    let myQuery = `SELECT * FROM readYes WHERE user_id = '${req.params.user_id}'`;
     db.query(myQuery, (err, result) => {
         if (err){
             throw err;
@@ -374,7 +381,7 @@ app.get('/getreadYes/:user_id', (req, res) => {
 // SELECT * FROM reviews WHERE user_id = '';
 //GET
 app.get('/getReviews/:user_id', (req, res) => {
-    let myQuery = `SELECT * FROM reviews WHERE user_id = ${req.params.user_id}`;
+    let myQuery = `SELECT * FROM reviews WHERE user_id = '${req.params.user_id}'`;
     db.query(myQuery, (err, result) => {
         if (err){
             throw err;
@@ -385,7 +392,7 @@ app.get('/getReviews/:user_id', (req, res) => {
 // SELECT * FROM toberead WHERE user_id = '';
 //GET
 app.get('/getTBR/:user_id', (req, res) => {
-    let myQuery = `SELECT * FROM toberead WHERE user_id = ${req.params.user_id}`;
+    let myQuery = `SELECT * FROM toberead WHERE user_id = '${req.params.user_id}'`;
     db.query(myQuery, (err, result) => {
         if (err){
             throw err;
@@ -396,7 +403,7 @@ app.get('/getTBR/:user_id', (req, res) => {
 // SELECT * FROM wishlist WHERE user_id = '';
 //GET
 app.get('/getWishlist/:user_id', (req, res) => {
-    let myQuery = `SELECT * FROM wishlist WHERE user_id = ${req.params.user_id}`;
+    let myQuery = `SELECT * FROM wishlist WHERE user_id = '${req.params.user_id}'`;
     db.query(myQuery, (err, result) => {
         if (err){
             throw err;
@@ -409,7 +416,7 @@ app.get('/getWishlist/:user_id', (req, res) => {
 // SELECT * FROM genretags WHERE gid = '';
 //GET
 app.get('/getGenre/:gid', (req, res) => {
-    let myQuery = `SELECT * FROM genretags WHERE gid = ${req.params.gid}`;
+    let myQuery = `SELECT * FROM genretags WHERE gid = '${req.params.gid}'`;
     db.query(myQuery, (err, result) => {
         if (err){
             throw err;
@@ -420,7 +427,7 @@ app.get('/getGenre/:gid', (req, res) => {
 // SELECT * FROM genretags WHERE genreTag = '';
 //GET
 app.get('/getGenreTag/:genreTag', (req, res) => {
-    let myQuery = `SELECT * FROM genretags WHERE genreTag = ${req.params.genreTag}`;
+    let myQuery = `SELECT * FROM genretags WHERE genreTag = '${req.params.genreTag}'`;
     db.query(myQuery, (err, result) => {
         if (err){
             throw err;
@@ -429,19 +436,6 @@ app.get('/getGenreTag/:genreTag', (req, res) => {
     })
 })
 
-
-
-
-
-
-
-
-
-
-const PORT = 9000
-app.listen(PORT, () => { 
-    console.log(`The App is listening on port ${PORT}`)
-});
 
 
 

@@ -1,21 +1,21 @@
 import BookMapLists from "../../pieces/bookMapLists"
 import axios from 'axios'
-import { useEffect } from "react"
+import { useEffect, useContext} from "react"
+import { UserContext } from "../../../context/UserProvider"
+import { useAuth0 } from "@auth0/auth0-react";
 
 export default function Library (){
+    const { user} = useAuth0();
+    const {getOwned, owned} =  useContext(UserContext)
+    useEffect(() =>{
+        getOwned(user)
+    }, []);
+
     function handleChange(e){
         const{value} = e.target
         console.log(value)
     }
-
-    useEffect(() =>{
-        axios.get('/displayRows')
-            .then(res => {
-             
-            })
-            .catch(err => console.log(err))
-    }, []);
-
+    
     return(
         <div>
             <form className="SortForm">
@@ -28,7 +28,7 @@ export default function Library (){
                     <option value="pubDate">Date Published</option>
                </select> 
            </form>
-           <BookMapLists/>
+           <BookMapLists userData = {owned} />
         </div>
     )
 }

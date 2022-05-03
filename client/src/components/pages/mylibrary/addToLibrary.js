@@ -1,6 +1,6 @@
 import FullBookDisplay from "../../pieces/fullBookDisplay";
 import { DataContext } from "../../../context/DataProvider";
-import {useContext, useEffect, useState} from 'react'
+import {useContext, useState} from 'react'
 import { useAuth0 } from "@auth0/auth0-react";
 import { UserContext } from "../../../context/UserProvider";
 //Get Book data from GID
@@ -14,10 +14,12 @@ export default function AddtoLibrary (){
     
     const initialInputs = {firstEdition: 'False', physical: 'Hardback', signedCopy: 'False', embossed: 'False', 
                             paintedEdges: 'standard', roomInHouse: 'Library', gid: bookID, boughtFrom: 'unknown', specialEdition: 'No',
-                            user_id:user.sub, dateAdded: date, dateEdited: date};
+                            user_id:user.sub, dateAdded: date, dateEdited: date, purchaseDate: date};
 
     const [inputs, setInputs] = useState(initialInputs);
     
+    // useEffect(setInputs(prevInputs => ({...prevInputs, gid:bookID})));
+
 
     const handleChange = (e) => {
         const {name, value} = e.target;
@@ -26,11 +28,18 @@ export default function AddtoLibrary (){
         console.log(name, value)
         console.log(inputs)
     }
- 
-    
-    const handleSubmit = (e) => {
+    const setGID =() =>{
+        setInputs(prevInputs => ({...prevInputs, gid:bookID}))
+        // console.log(bookID)
+        // return new Promise(resolve => {
+        //     setTimeout(() => {
+        //       resolve('resolved');
+        //     }, 5000);
+        //   })
+    }
+   
+    const handleSubmit =(e)=> {
         e.preventDefault();
-        console.log(inputs)
         addOwned(inputs)
      }
   
