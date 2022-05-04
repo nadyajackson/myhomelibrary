@@ -3,12 +3,10 @@ USE myhomelibrary;
 CREATE TABLE owned(user_id VARCHAR(50), gid VARCHAR(15), firstEdition boolean, physical varchar(20),
 					signedCopy boolean, specialEdition varchar(50),    
                     purchaseDate date, giftedBy VARCHAR(50), embossed boolean, paintedEdges VARCHAR(15),
-					roomInHouse VARCHAR(50), 
+					roomInHouse VARCHAR(50), boughtFrom varchar(50),
                     recomendedBy VARCHAR(50), dateAdded datetime, dateEdited datetime);
-                    
-ALTER TABLE owned  ADD boughtFrom varchar(50);                 
-ALTER TABLE owned DROP column coverStyle;                  
-
+                                  
+                 
 CREATE TABLE toberead(user_id VARCHAR(50), gid VARCHAR(15), recomendedBy VARCHAR(50),
 					dateAdded datetime, dateEdited datetime);
 

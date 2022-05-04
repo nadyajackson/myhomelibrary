@@ -47,6 +47,7 @@ export default function AddtoLibrary (){
 
     return(
         <div id="fullbook">
+            {console.log(inputs)}
             <FullBookDisplay oneBook={oneBook} /> 
             <form className="addtoLibrary" onSubmit={handleSubmit}>
             <h2>Add Book To Your Library</h2>

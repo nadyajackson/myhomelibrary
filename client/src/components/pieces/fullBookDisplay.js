@@ -4,8 +4,6 @@ import coverNotFound from "../../coverNotFound.png"
 //import { useAuth0 } from "@auth0/auth0-react";
 
 
-//Get Book Info Via Google ID (gid)
-
 //byGID
 export default function FullBookDisplay(props){
     const [loading, setLoading] = useState(true)
@@ -16,9 +14,10 @@ export default function FullBookDisplay(props){
             return volumeInfo.imageLinks.thumbnail
         }else{return coverNotFound}
     }
-
-    let Authors = volumeInfo.authors.map(bookdata => <h4>{bookdata}</h4>)
+    let Authors = !volumeInfo ? 'loading':
+        volumeInfo.authors.map(bookdata => <h4>{bookdata}</h4>)
     
+
     return(
         !volumeInfo ? 'loading': 
         <div className='fullbook'>

@@ -1,8 +1,9 @@
-import React, { useContext, } from 'react';
+import React, { useContext } from 'react';
 import { DataContext } from '../../context/DataProvider';
 import coverNotFound from "../../coverNotFound.png"
 import { useAuth0 } from "@auth0/auth0-react";
 import {Link} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 
 export default function BookPiece (props){
@@ -14,6 +15,14 @@ export default function BookPiece (props){
         if(volumeInfo.imageLinks !== undefined){
             return volumeInfo.imageLinks.thumbnail
         }else{return coverNotFound}
+    }
+    const navigate = useNavigate();
+
+    async function getLibrary(){
+        console.log(gid)
+        await byGID(gid)
+        console.log("complete")
+        navigate('/addtolibrary')
     }
     async function getOneBook(){
         console.log(gid)
@@ -30,7 +39,7 @@ export default function BookPiece (props){
             {Authors}
             <p>{volumeInfo.description}</p>
             <div className='buttons'>
-                <Link  to={isAuthenticated ? '/addToLibrary' : '/'} gid={gid}> <button onClick={getOneBook}>Add to Library</button></Link> 
+                <button onClick={getLibrary} >Add to Library</button>
                 <Link to={isAuthenticated ? '/addToTBR' : '/'}><button onClick={getOneBook}>Add to TBR</button> </Link>
                 <Link to={isAuthenticated ? '/addToWishlist' : '/'}> <button onClick={getOneBook}>Add to Wishlist</button> </Link>
             </div>

@@ -43,6 +43,7 @@ export default function UserProvider(props){
             .then(res=>{
                 console.log(newBook)
                 setUserState({owned: previous => [...previous, newBook]})
+                alert('Success!')
             })
             .catch(err => console.log(err))
     }
@@ -52,6 +53,7 @@ export default function UserProvider(props){
             .then(res=>{
                 console.log(newBook)
                 setUserState({tbr: previous => [...previous, newBook]})
+                alert('Success!')
             })
             .catch(err => console.log(err))
     }
@@ -60,6 +62,7 @@ export default function UserProvider(props){
             .then(res=>{
                 console.log(newBook)
                 setUserState({wishlist: previous => [...previous, newBook]})
+                alert('Success!')
             })
             .catch(err => console.log(err))
     }
