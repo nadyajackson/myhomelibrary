@@ -24,10 +24,17 @@ export default function BookPiece (props){
         console.log("complete")
         navigate('/addtolibrary')
     }
-    async function getOneBook(){
+    async function getTBR(){
         console.log(gid)
         await byGID(gid)
         console.log("complete")
+        navigate('/addToTBR')
+    }
+    async function getWL(){
+        console.log(gid)
+        await byGID(gid)
+        console.log("complete")
+        navigate('/addToWishlist')
     }
     
     let Authors = volumeInfo.authors.map(bookdata => <h4>{bookdata}</h4>)
@@ -40,8 +47,8 @@ export default function BookPiece (props){
             <p>{volumeInfo.description}</p>
             <div className='buttons'>
                 <button onClick={getLibrary} >Add to Library</button>
-                <Link to={isAuthenticated ? '/addToTBR' : '/'}><button onClick={getOneBook}>Add to TBR</button> </Link>
-                <Link to={isAuthenticated ? '/addToWishlist' : '/'}> <button onClick={getOneBook}>Add to Wishlist</button> </Link>
+                <button onClick={getTBR}>Add to TBR</button>
+                <button onClick={getWL}>Add to Wishlist</button>
             </div>
         </div>
     )

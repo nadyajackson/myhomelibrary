@@ -8,7 +8,7 @@ export default function AddtoLibrary (){
     const {oneBook} = useContext(DataContext)
     const bookID = oneBook.id
     const {addOwned} =  useContext(UserContext)
-    const { user} = useAuth0();
+    const { user, isAuthenticated} = useAuth0();
     const current = new Date()
     const date = `${current.getFullYear()}/${current.getMonth()+1}/${current.getDate()} ${current.getHours()}:${current.getMinutes()}:${current.getSeconds()}`;
     
@@ -18,7 +18,6 @@ export default function AddtoLibrary (){
 
     const [inputs, setInputs] = useState(initialInputs);
     
-    // useEffect(setInputs(prevInputs => ({...prevInputs, gid:bookID})));
 
 
     const handleChange = (e) => {
@@ -28,26 +27,16 @@ export default function AddtoLibrary (){
         console.log(name, value)
         console.log(inputs)
     }
-    const setGID =() =>{
-        setInputs(prevInputs => ({...prevInputs, gid:bookID}))
-        // console.log(bookID)
-        // return new Promise(resolve => {
-        //     setTimeout(() => {
-        //       resolve('resolved');
-        //     }, 5000);
-        //   })
-    }
-   
     const handleSubmit =(e)=> {
         e.preventDefault();
         addOwned(inputs)
      }
   
 
-
     return(
         <div id="fullbook">
-            {console.log(inputs)}
+            {isAuthenticated ?
+            <>
             <FullBookDisplay oneBook={oneBook} /> 
             <form className="addtoLibrary" onSubmit={handleSubmit}>
             <h2>Add Book To Your Library</h2>
@@ -176,7 +165,12 @@ export default function AddtoLibrary (){
 
                 <button>Submit</button>
             </form>
-
+            </>
+           :
+           <>
+           <p className="errMsg">{errMsg}</p>
+           </>
+            }
 
         </div>
       

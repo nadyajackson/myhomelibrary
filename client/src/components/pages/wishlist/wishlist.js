@@ -4,8 +4,8 @@ import { useEffect, useContext } from "react"
 import { UserContext } from "../../../context/UserProvider"
 import { useAuth0 } from "@auth0/auth0-react";
 export default function WishList (){
-    const { user} = useAuth0();
-    const {getWishlist, wishlist} =  useContext(UserContext)
+    const { user, isAuthenticated} = useAuth0();
+    const {getWishlist, wishlist, errMsg} =  useContext(UserContext)
     useEffect(() =>{
         getWishlist(user)
     }, []);
@@ -16,6 +16,8 @@ export default function WishList (){
     }
     return(
         <div>
+            {isAuthenticated ?
+            <>
             <form className="SortForm">
                <label>Sort by:</label>
                <select onChange={handleChange}>
@@ -27,6 +29,11 @@ export default function WishList (){
                </select>
            </form>
            <BookMapLists userData = {wishlist}/>
+           </>
+           :
+           <>
+           <p className="errMsg">{errMsg}</p>
+           </>}
         </div>
     )
 }

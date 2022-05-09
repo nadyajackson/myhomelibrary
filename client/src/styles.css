@@ -4,6 +4,11 @@
     /* background-image: linear-gradient(rgba(143,94,54,1), rgba(143,94,54,0)); */
     color: white
 }
+.errMsg{
+    background-color: "c00000";
+    color:"ffffff"; 
+    text-align:"center"
+}
 .navbar{
     border-bottom: white solid 1px;
 }

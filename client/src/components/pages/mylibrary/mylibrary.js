@@ -5,8 +5,8 @@ import { UserContext } from "../../../context/UserProvider"
 import { useAuth0 } from "@auth0/auth0-react";
 
 export default function Library (){
-    const { user} = useAuth0();
-    const {getOwned, owned} =  useContext(UserContext)
+    const { user, isAuthenticated} = useAuth0();
+    const {getOwned, owned, errMsg} =  useContext(UserContext)
     useEffect(() =>{
         getOwned(user)
     }, []);
@@ -18,6 +18,8 @@ export default function Library (){
     
     return(
         <div>
+            {isAuthenticated ?
+            <>
             <form className="SortForm">
                <label>Sort by:</label>
                <select onChange={handleChange}>
@@ -29,6 +31,13 @@ export default function Library (){
                </select> 
            </form>
            <BookMapLists userData = {owned} />
+           </>
+           :
+           <>
+           <p className="errMsg">{errMsg}</p>
+           </>
+            }
         </div>
+         
     )
 }

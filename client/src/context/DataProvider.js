@@ -18,12 +18,20 @@ export default function DataProvider(props) {
     //isbn: Returns results where the text following this keyword is the ISBN number.
 
   //  https://www.googleapis.com/books/v1/volumes?q=isbn:9781732030725&key=AIzaSyCZKGKVzptBGV25nPaDWcgK4q6vHIzhSCQ
-    const initState ={
-        bookState: []
-    }
     
-    const [bookState, setBookState] = useState(initState)
+    const handleErr=(errMsg)=>{
+        setErrMsg(
+            errMsg
+        )
+    }
+    const resetErr=()=>{
+        setErrMsg(
+            errMsg = ''
+        )
+    }
+    const [bookState, setBookState] = useState([])
     const [oneBook, setOneBook] = useState('')
+    const [errMsg, setErrMsg] = useState('')
 
     const byISBN = (query) => {
         const encodeQuery = encodeURIComponent(query);
@@ -31,19 +39,22 @@ export default function DataProvider(props) {
         
         axios.get(url).then(res => 
             {setBookState({bookState: res.data.items})}
-        ).catch(err => console.log(err))
+        ).catch(err => handleErr(err))
     }
 
     const byGID = (query) => {
         const encodeQuery = encodeURIComponent(query);
         const url = `https://www.googleapis.com/books/v1/volumes/${encodeQuery}?key=${key}`
         
-        axios.get(url).then(res => 
+        var p = axios.get(url);
+        p.then(res => 
            {console.log(url)
             console.log(res.data)
             setOneBook(res.data)}
             
-        ).catch(err => console.log(err))
+        ).catch(err => handleErr(err))
+        return p;
+
     }
 
     const byTitle = (query) => {
@@ -54,7 +65,7 @@ export default function DataProvider(props) {
             //console.log(res.data.items)
             setBookState({bookState: res.data.items})
             // console.log(res.data.items[0].volumeInfo.title)
-        }).catch(err => console.log(err))
+        }).catch(err => handleErr(err))
 
     }
 
@@ -64,7 +75,7 @@ export default function DataProvider(props) {
         
         axios.get(url).then(res => 
           {  setBookState({bookState: res.data.items})}
-        ).catch(err => console.log(err))
+        ).catch(err => handleErr(err))
     }
     
     const genQuery= (query) => {
@@ -75,7 +86,7 @@ export default function DataProvider(props) {
             console.log(url)
             console.log(res.data.items)
             setBookState({bookState: res.data.items})}
-        ).catch(err => console.log(err))
+        ).catch(err => handleErr(err))
     }
    
 
@@ -88,7 +99,8 @@ export default function DataProvider(props) {
                 byGID,
                 byTitle,
                 byAuthor,
-                genQuery
+                genQuery,
+                resetErr
             }}>
             {props.children}
         </DataContext.Provider>

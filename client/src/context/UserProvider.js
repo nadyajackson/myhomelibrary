@@ -12,26 +12,40 @@ export default function UserProvider(props){
     const initState = {
         owned: [],
         tbr: [],
-        wishlist: []
+        wishlist: [],
+        errMsg: ''
     }
     const [userState, setUserState] = useState(initState)
 
+    const handleAuthErr=(errMsg)=>{
+        setUserState(prevState =>({
+            ...prevState,
+            errMsg
+        }))
+    }
+    const resetAuthErr=()=>{
+        setUserState(prevState =>({
+            ...prevState,
+            errMsg: ''
+        }))
+    }
+     
     //Get 
     const getOwned = (user) =>{
         axios.get(`http://localhost:9000/getOwned/${user.sub}`)
             .then(res => {setUserState({owned: res.data})})
-            .catch(err => console.log(err))
+            .catch(err => handleAuthErr(err))
     }
     const getTBR = (user) =>{
         axios.get(`http://localhost:9000/getTBR/${user.sub}`)
             .then(res => {setUserState({tbr: res.data})})
-            .catch(err => console.log(err))
+            .catch(err => handleAuthErr(err))
     }
 
     const getWishlist = (user) =>{
         axios.get(`http://localhost:9000/getWishlist/${user.sub}`)
             .then(res => {setUserState({wishlist: res.data})})
-            .catch(err => console.log(err))
+            .catch(err => handleAuthErr(err))
     }
 
     
@@ -45,7 +59,7 @@ export default function UserProvider(props){
                 setUserState({owned: previous => [...previous, newBook]})
                 alert('Success!')
             })
-            .catch(err => console.log(err))
+            .catch(err => handleAuthErr(err))
     }
 
     const addTBR = (newBook) =>{
@@ -55,7 +69,7 @@ export default function UserProvider(props){
                 setUserState({tbr: previous => [...previous, newBook]})
                 alert('Success!')
             })
-            .catch(err => console.log(err))
+            .catch(err => handleAuthErr(err))
     }
     const addWishlist = (newBook) =>{
         axios.post('http://localhost:9000/insertWishlist', newBook)
@@ -64,7 +78,7 @@ export default function UserProvider(props){
                 setUserState({wishlist: previous => [...previous, newBook]})
                 alert('Success!')
             })
-            .catch(err => console.log(err))
+            .catch(err => handleAuthErr(err))
     }
     //Delete Owned
     //Update Owned
@@ -87,6 +101,7 @@ return(
             addOwned,
             addTBR,
             addWishlist,
+            resetAuthErr
         }}>
         {props.children}
     </UserContext.Provider>

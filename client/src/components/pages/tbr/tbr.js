@@ -5,8 +5,8 @@ import { UserContext } from "../../../context/UserProvider"
 import { useAuth0 } from "@auth0/auth0-react";
 
 export default function TBR (){
-    const { user} = useAuth0();
-    const {getTBR, tbr} =  useContext(UserContext)
+    const { user, isAuthenticated} = useAuth0();
+    const {getTBR, tbr, errMsg} =  useContext(UserContext)
     useEffect(() =>{
         getTBR(user)
     }, []);
@@ -21,6 +21,8 @@ export default function TBR (){
 
     return(
         <div>
+            {isAuthenticated ?
+            <>
             <form className="SortForm">
                <label>Sort by:</label>
                <select onChange={handleChange}>
@@ -32,6 +34,11 @@ export default function TBR (){
                </select>
            </form>
            <BookMapLists userData = {tbr}/>
+           </>
+           :
+           <>
+           <p className="errMsg">{errMsg}</p>
+           </>}
         </div>
     )
 }
